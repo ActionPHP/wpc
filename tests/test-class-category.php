@@ -1,6 +1,6 @@
 <?php
 require_once('simpletest/autorun.php');
-require_once('../includes/class-category.php');
+require_once(WPCART_PATH . 'includes/class-category.php');
  
 class TestWPCartCategory extends UnitTestCase 
 {	

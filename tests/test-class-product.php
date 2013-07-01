@@ -1,9 +1,12 @@
 <?php
+
 require_once('simpletest/autorun.php');
-require_once('../includes/class-product.php');
- 
+require_once(WPCART_PATH . 'includes/class-product.php');
+/**
+ * 
+ */
 class TestWPCartProduct extends UnitTestCase 
-{
+{	
 	public function __construct()
 	{
 			$this->product = new WPCartProduct;
@@ -25,6 +28,7 @@ class TestWPCartProduct extends UnitTestCase
 
 			'family' => 'GigTicket',
 			'category_id' => 5,
+			'sku' => 'WPC_B1_5',
 			'name' => 'Easter Gig',
 			'price' => '97.00',
 			'brief_description' => 'The Gigger\'s Gig',
@@ -36,7 +40,7 @@ class TestWPCartProduct extends UnitTestCase
 
 		$data = (object) $data;
 		
-		print_r($data);
+		//pre($data);
 
 		$product->create($data);
 		$product_id = $product->getId();

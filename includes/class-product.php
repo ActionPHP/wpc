@@ -1,4 +1,7 @@
 <?php
+/**
+ * 
+ */
 class WPCartProduct
 {
 	protected $id;
@@ -19,12 +22,17 @@ class WPCartProduct
 		$data->id = $this->getId();
 		return $data;
 	}
-
+	/**
+	 * Gets a product by its id
+	 * 
+	 * @param  int $id the product id
+	 * @return array $product an array containing the product's properties
+	 */
 	public function get($id)
 	{
 		# code...
 	}
-
+	
 	public function update($data)
 	{
 		# code...

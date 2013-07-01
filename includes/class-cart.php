@@ -5,7 +5,7 @@ class WPCartCart
 
 	public function __construct(){
 
-		session_start();
+		//session_start();
 
 		if(empty($_SESSION['cart'])){
 
