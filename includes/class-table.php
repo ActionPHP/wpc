@@ -58,7 +58,6 @@
 		}
 		
 		public function create($value, $field='name', $type='%s'){
-			
 			return $this->_create_item($value, $field, $type);			
 			
 		}
@@ -243,6 +242,12 @@
 			
 			return $this->_validate_parameters($id, $field, $type);
 		}
+
+		public function getTableName()
+		{
+			return $this->table_name;
+		}
+		
 	}
 
 ?>

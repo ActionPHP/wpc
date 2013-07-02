@@ -1,6 +1,6 @@
 <?php
 
-		$families = array(
+		return array(
 
 				'GigTicket' => array(
 
@@ -23,6 +23,34 @@
 					),
 
 				),
+
+				'T-shirt' => array(
+
+					'properties' => array(
+
+						'color' => array(
+							'white',
+							'black',
+							'red',
+							'blue',
+							'pink',
+							'yellow',
+							'green',
+							'purple',
+							'grey',
+							
+							),
+						'size' => array(),
+						'gender' => array(),
+						'neck-type' => array(
+
+								'V-neck',
+								'Round neck',
+							),
+
+						),
+
+					),
 			);
 
 

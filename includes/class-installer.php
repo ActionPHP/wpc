@@ -1,4 +1,5 @@
 <?php
+
 /**
 * Installs 
 * 
@@ -10,74 +11,102 @@ class WPCartInstaller
 	private $install_array;
 
 	function __construct($install_array = array())
-	{
+	{	
 		$this->setInstallArray($install_array);
+		
 	}
 
 	public function install()
 	{
 		
 		//Let's create the tables
-		$this->installTables();
+		$tablesInstalled = $this->installTables();
 		
-		//$tablesInstalled = $this->installTables();
-
 		//Let's install the product Family prototypes
-		$this->installFamilies();
+		$familiesInstalled = $this->installFamilies();
+
+		update_option('a1', get_defined_vars());
 	}
 	
 
 	public function installTables()
 	{
-		$this->tables = $install_array['Tables'];
+		$tables = $this->getTablesArray();
+		$tables_installed = array();
+		
+		foreach($tables as $table => $data){
 
-		$family = new WPCartFamily;
-		$family->table();
+			$table_object = new stdClass();
 
-		return true;
+			$table_object->name = $table;
+			$table_object->class = $data['class'];
+			$table_object->class_file = $data['class_file'];
+
+			
+
+			$tables_installed[] = $table_object->name;
+
+			$this->installTable($table_object);
+
+		}
+		
+		return $tables_installed;
 	}
 
-	public function installTable($table)
+	public function installTable($table_object)
 	{
-		# code...
+		$table = $table_object;
+
+		require_once($table->class_file);
+		$table_class = new $table->class($table_name);
+
+		$table_class->table();
+
+
 	}
 
 	public function installFamilies()
 	{
-		$familyTable = $this->getFamilyTable();
-
 		$families = $this->getFamilyArray();
 
-		foreach ($families as $families => $value) {
+		foreach ($families as $family => $data) {
 			
-			$this->installFamily($name, $properties);
-		}
-	}
+			$family_object = new stdClass();
 
-	public function installFamily($name, $properties)
-	{
-		$familyTable = $this->getFamilyTable();
-		$families = $this->getFamilyArray();
+			$family_object->name = $family;
+			$family_object->properties = $data['properties'];
 
-		foreach ($families as $family => $property) {
+			$installed = $this->installFamily($family_object);
 			
-			pre('Family name: '. $family);
-			pre($property);
+			$families_installed[] = $installed;
 
 		}
+				
 
-		return;
+		return $families_installed;
 	}
 
-	public function setFamilyArray()
+	public function installFamily($family_object)
 	{
-		$install_array = $this->getInstallArray();
-		$this->familyArray = $install_array['Families'];
+		$family = new WPCartFamily;
+
+		$family->setFamily($family_object);
+		$family->createFamily();
+
+		return $family_object->name;
+		
+	}
+
+	public function setFamilyArray($family_array)
+	{
+		$this->family_array = $family_array;
 	}
 
 	public function getFamilyArray()
 	{
-		return $this->familyArray;
+		$install_array = $this->getInstallArray();
+		$this->family_array = $install_array['Families'];
+		return $this->family_array;
 	}
 
 	public function setInstallArray($install_array)
@@ -96,7 +125,12 @@ class WPCartInstaller
 		return $this->install_array;
 	}	
 
-	
+	public function getTablesArray()
+	{
+		$install_array = $this->getInstallArray();
+		$this->tables_array = $install_array['Tables'];
+		return $this->tables_array;
+	}
 }
 
 ?>
