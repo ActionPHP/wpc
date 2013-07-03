@@ -71,6 +71,15 @@ class WPCartFamily
 
 	}
 
+	public function get($id='')
+	{
+		$familyTable = $this->getFamilyTable();
+
+		$families = $familyTable->get($id);
+
+		return $families;
+	}
+
 
 	public function setFamily($family)
 	{

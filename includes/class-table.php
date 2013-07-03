@@ -68,7 +68,7 @@
 			
 			$table_name = $this->table_name;
 			
-			if( $id == 'all' ){
+			if( $id == 'all' || !$id){
 				
 				$results = $wpdb->get_results("SELECT * FROM $table_name WHERE Status='fresh'  ORDER BY id DESC;");
 				
@@ -83,7 +83,7 @@
 		}
 		
 		public function get( $id='all' ){
-			
+			pre(get_defined_vars());
 			return $this->_get_item($id);
 			
 		}

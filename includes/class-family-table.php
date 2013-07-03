@@ -47,6 +47,14 @@ class WPCartFamilyTable
 		return $family_id;
 	}
 
+	public function get($id='')
+	{
+		$family = $this->table->get($id);
+
+		return $family;
+
+	}
+
 }
 
 ?>
